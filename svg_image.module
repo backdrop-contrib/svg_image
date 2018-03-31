@@ -4,6 +4,33 @@
  */
 
 /**
+ * Implements hook_field_widget_form_alter().
+ */
+function svg_image_field_widget_form_alter(&$element, &$form_state, $context) {
+  if ($context['field']['type'] === 'image') {
+    $extensions_settings = $context['instance']['settings']['file_extensions'];
+    $allowed_extensions = explode(' ', $extensions_settings);
+
+    if (in_array('svg', $allowed_extensions)) {
+      foreach ($element as $delta => $field_item) {
+        // Not sure that we need such cheсk - we have to have this validator in
+        // any case.
+        if (!empty($field_item['#upload_validators']['file_validate_extensions'][0])) {
+          $extensions_to_validate = explode(' ', $field_item['#upload_validators']['file_validate_extensions'][0]);
+          // Add SVG as extension that we allow.
+          $extensions_to_validate[] = 'svg';
+
+          $field_item['#upload_validators']['file_validate_extensions'] = array(
+            implode(' ', $extensions_to_validate)
+          );
+          $element[$delta] = $field_item;
+        }
+      }
+    }
+  }
+}
+
+/**
  * Preprocess function for theme_image_style().
  *
  * If theme_image_style() is called without setting explicit height/width for
