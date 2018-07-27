@@ -32,18 +32,22 @@ function svg_image_field_widget_form_alter(&$element, &$form_state, $context) {
 }
 
 /**
- * Implements hook_field_formatter_info_alter().
+ * Implements hook_field_formatter_info().
  */
-function svg_image_field_formatter_info_alter(&$info) {
-  $image_field = &$info['image'];
+function svg_image_field_formatter_info() {
+  // Fetch the image formatter info from the core image type.
+  $core_image_formatters = image_field_formatter_info();
 
-  $image_field['module'] = 'svg_image';
+  $image_field = $core_image_formatters['image'];
 
   // Add SVG Image related settings.
+  $image_field['label'] = t('Image (SVG Support)');
   $image_field['settings']['svg_settings'] = array(
     'width' => '',
     'height' => '',
   );
+
+  return array('svg_image' => $image_field);
 }
 
 /**
