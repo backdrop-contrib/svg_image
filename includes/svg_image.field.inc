@@ -24,6 +24,15 @@ function svg_image_field_widget_form_alter(&$element, &$form_state, $context) {
           $field_item['#upload_validators']['file_validate_extensions'] = array(
             implode(' ', $extensions_to_validate)
           );
+
+          // Rebuild #description with new extensions - it was built in image_field_widget_form().
+          if (!empty($field_item['#description'])) {
+            $field_item['#description'] = theme('file_upload_help', array(
+              'description' => field_filter_xss($context['instance']['description']),
+              'upload_validators' => $field_item["#upload_validators"],
+            ));
+          }
+
           $element[$delta] = $field_item;
         }
       }
