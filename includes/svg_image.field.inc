@@ -14,9 +14,10 @@ function svg_image_field_widget_form_alter(&$element, &$form_state, $context) {
 
     if (in_array('svg', $allowed_extensions)) {
       foreach ($element as $delta => $field_item) {
-        // Not sure that we need such cheсk - we have to have this validator in
-        // any case.
-        if (!empty($field_item['#upload_validators']['file_validate_extensions'][0])) {
+        // Field item could be a string for example.
+        if (is_array($field_item)
+          // Check that nobody delete this validator.
+          && !empty($field_item['#upload_validators']['file_validate_extensions'][0])) {
           $extensions_to_validate = explode(' ', $field_item['#upload_validators']['file_validate_extensions'][0]);
           // Add SVG as extension that we allow.
           $extensions_to_validate[] = 'svg';
@@ -25,7 +26,8 @@ function svg_image_field_widget_form_alter(&$element, &$form_state, $context) {
             implode(' ', $extensions_to_validate)
           );
 
-          // Rebuild #description with new extensions - it was built in image_field_widget_form().
+          // Rebuild #description with new extensions - it was built
+          // in the image_field_widget_form().
           if (!empty($field_item['#description'])) {
             $field_item['#description'] = theme('file_upload_help', array(
               'description' => field_filter_xss($context['instance']['description']),
