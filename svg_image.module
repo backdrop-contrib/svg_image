@@ -132,9 +132,14 @@ function svg_image_get_dimensions($uri) {
     return $cached_images[$uri];
   }
 
-  $svg_dimensions = array(
-    'width' => NULL,
-    'height' => NULL,
+  // Workaround for a getting a width and height. It cannot be null and need to
+  // be defined for the every image. So - if we got SVG file without the
+  // dimensions defined in attributes it should be defined from our side to
+  // avoid an exception.
+  // @todo add a variable which defines this values.
+    $svg_dimensions = array(
+    'width' => 200,
+    'height' => 200,
   );
 
   $file_contents = file_get_contents($uri);
