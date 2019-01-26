@@ -80,10 +80,9 @@ function svg_image_field_attach_presave($entity_type, $entity) {
         }
         $file = file_load($field_value['fid']);
         if ($file && svg_image_is_svg($file->uri)) {
-          // Set width/height as a safety measure. Savable NULL is better than
-          // the not savable empty string.
-          $field_values[$delta]['width'] = NULL;
-          $field_values[$delta]['height'] = NULL;
+          // Set default 100x100 as a default values.
+          $field_values[$delta]['width'] = 100;
+          $field_values[$delta]['height'] = 100;
           if ($svg_dimensions = svg_image_get_dimensions($file->uri)) {
             $field_values[$delta]['width'] = $svg_dimensions['width'];
             $field_values[$delta]['height'] = $svg_dimensions['height'];
