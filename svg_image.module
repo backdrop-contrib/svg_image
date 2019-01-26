@@ -5,6 +5,8 @@
 
 require_once 'includes/svg_image.field.inc';
 
+define('SVG_IMAGE_DEFAULT_WIDTH', 200);
+define('SVG_IMAGE_DEFAULT_HEIGHT', 200);
 /**
  * Preprocess function for theme_image_style().
  *
@@ -20,6 +22,10 @@ function svg_image_preprocess_image_style(&$variables) {
     if ($dimensions = svg_image_get_dimensions($uri)) {
       $variables['width'] = $dimensions['width'];
       $variables['height'] = $dimensions['height'];
+    }
+    else {
+      $variables['width'] = SVG_IMAGE_DEFAULT_WIDTH;
+      $variables['height'] = SVG_IMAGE_DEFAULT_HEIGHT;
     }
   }
 }
@@ -81,8 +87,8 @@ function svg_image_field_attach_presave($entity_type, $entity) {
         $file = file_load($field_value['fid']);
         if ($file && svg_image_is_svg($file->uri)) {
           // Set default 100x100 as a default values.
-          $field_values[$delta]['width'] = 100;
-          $field_values[$delta]['height'] = 100;
+          $field_values[$delta]['width'] = SVG_IMAGE_DEFAULT_WIDTH;
+          $field_values[$delta]['height'] = SVG_IMAGE_DEFAULT_HEIGHT;
           if ($svg_dimensions = svg_image_get_dimensions($file->uri)) {
             $field_values[$delta]['width'] = $svg_dimensions['width'];
             $field_values[$delta]['height'] = $svg_dimensions['height'];
@@ -137,8 +143,8 @@ function svg_image_get_dimensions($uri) {
   // avoid an exception.
   // @todo add a variable which defines this values.
     $svg_dimensions = array(
-    'width' => 200,
-    'height' => 200,
+    'width' => SVG_IMAGE_DEFAULT_WIDTH,
+    'height' => SVG_IMAGE_DEFAULT_HEIGHT,
   );
 
   $file_contents = file_get_contents($uri);
