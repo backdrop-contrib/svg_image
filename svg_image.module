@@ -142,7 +142,7 @@ function svg_image_get_dimensions($uri) {
   // dimensions defined in attributes it should be defined from our side to
   // avoid an exception.
   // @todo add a variable which defines this values.
-    $svg_dimensions = array(
+  $svg_dimensions = array(
     'width' => SVG_IMAGE_DEFAULT_WIDTH,
     'height' => SVG_IMAGE_DEFAULT_HEIGHT,
   );
