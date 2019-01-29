@@ -68,12 +68,11 @@ function svg_image_field_attach_presave($entity_type, $entity) {
   foreach ($bundle_field_info as $field_name => $instance_info) {
     $field_info = field_info_field($field_name);
     if ($field_info['type'] === 'image') {
-      // The language should normally be LANGUAGE_NONE for an image field, but
-      // check the language property just to be certain.
-      $langcode = LANGUAGE_NONE;
-      if (isset($entity->language) && isset($entity->{$field_name}[$entity->language])) {
-        $langcode = $entity->language;
-      }
+      // Rely on locale API to retrieve the correct langcode
+      $langcode = field_is_translatable( $entity_type, $field_info)
+        ? field_language( $entity_type, $entity, $field_name )
+        : LANGUAGE_NONE;
+
       if (!isset($entity->{$field_name}[$langcode])) {
         continue;
       }
