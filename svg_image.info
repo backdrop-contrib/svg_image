@@ -1,3 +1,4 @@
 name = SVG Image Support
 description = Provides support for SVG images to image fields.
-core = 7.x
+backdrop = 1.x
+type = module
