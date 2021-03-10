@@ -35,20 +35,21 @@ times.
 Issues
 ------
 
-Bugs and Feature requests should be reported in the Issue Queue:
-https://github.com/backdrop-contrib/svg_image/issues
+Bugs and Feature requests should be reported in the 
+[Issue Queue](https://github.com/backdrop-contrib/svg_image/issues).
 
 Current Maintainers
 -------------------
 
-- Herb v/d Dool <https://github.com/herbdool>
+- [Herb v/d Dool](https://github.com/herbdool)
 - Seeking co-maintainers.
 
 Credits
 -------
 
-- Ported to Backdrop by Herb v/d Dool <https://github.com/herbdool>
-- Originally developed for Drupal by Nate Lampton (quicksketch) <https://www.drupal.org/u/quicksketch>.
+- Ported to Backdrop by [Herb v/d Dool](https://github.com/herbdool).
+- Originally developed for Drupal by [zvse](https://www.drupal.org/u/zvse).
+
 
 License
 -------
