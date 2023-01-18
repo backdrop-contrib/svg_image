@@ -16,16 +16,19 @@ define('SVG_IMAGE_DEFAULT_HEIGHT', 200);
  */
 function svg_image_preprocess_image_style(&$variables) {
   $uri = $variables['path'];
-  $is_svg = svg_image_is_svg($uri);
+  // Only try to get file information if $uri is not empty.
+  if (!empty($uri)) {
+    $is_svg = svg_image_is_svg($uri);
 
-  if ($is_svg && empty($variables['width']) && empty($variables['height'])) {
-    if ($dimensions = svg_image_get_dimensions($uri)) {
-      $variables['width'] = $dimensions['width'];
-      $variables['height'] = $dimensions['height'];
-    }
-    else {
-      $variables['width'] = SVG_IMAGE_DEFAULT_WIDTH;
-      $variables['height'] = SVG_IMAGE_DEFAULT_HEIGHT;
+    if ($is_svg && empty($variables['width']) && empty($variables['height'])) {
+      if ($dimensions = svg_image_get_dimensions($uri)) {
+        $variables['width'] = $dimensions['width'];
+        $variables['height'] = $dimensions['height'];
+      }
+      else {
+        $variables['width'] = SVG_IMAGE_DEFAULT_WIDTH;
+        $variables['height'] = SVG_IMAGE_DEFAULT_HEIGHT;
+      }
     }
   }
 }
