@@ -134,7 +134,7 @@ function svg_image_get_dimensions($uri) {
   }
 
   // Return cached dimensions if already retrieved once this request.
-  $cached_images = &drupal_static(__FUNCTION__, array());
+  $cached_images = &backdrop_static(__FUNCTION__, array());
   if (isset($cached_images[$uri])) {
     return $cached_images[$uri];
   }
